@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>API Documentation</title>
+    <style>
+        body {
+            background-color: linen;
+        }
+
+        h2 {
+            color: maroon;
+            margin-left: 40px;
+        }
+
+        .block_of_content {
+            margin-left: 50px;
+        }
+
+        table {
+            color: #333;
+            font-family: Helvetica, Arial, sans-serif;
+            width: 750px;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        td, th {
+            border: 1px solid #CCC;
+            height: 30px;
+        }
+
+        th {
+            background: #F3F3F3;
+        }
+
+        td {
+            background: #FAFAFA;
+            text-align: center;
+        }
+
+        blockquote {
+            background: #f9f9f9;
+            border-left: 10px solid #ccc;
+            margin: 1.5em 10px;
+            padding: 0.5em 10px;
+            width: 700px;
+            quotes: "\201C""\201D""\2018""\2019";
+        }
+
+            blockquote p {
+                display: inline;
+            }
+
+        a {
+            transition: color .4s;
+            color: #265C83;
+            text-decoration: none;
+        }
+
+            a:link,
+            a:visited {
+                color: #265C83;
+            }
+
+            a:hover {
+                color: maroon;
+            }
+
+            a:active {
+                transition: color .3s;
+                color: #007BE6;
+            }
+    </style>
+</head>
+<body>
+
+
+
+    <h2>Mediatypes</h2>
+    <div class="block_of_content">
+	    <p>This API supports the following media types:</p>
+	    <ul>
+	    	<li>application/vnd.collection+json</li>
+	    	<li>application/vnd.siren+json</li>
+	    </ul>
+	    <p>Makes use of the media type 
+	      <a href="https://tools.ietf.org/html/draft-nottingham-http-problem-03">application/api-problem+json</a>
+	       to present a more detailed error message.</p>
+    </div>
+
+    <h2>Homepage Link Relations</h2>
+    <div class="block_of_content">
+    	<p>This relations are application-based and are present in the homepage served
+    	when the main uri of this API is accessed through a GET request.</p>
+    	<h3>comments_url</h3      	<p>
+    		The target URI is a templated URI that can be used to obtain a certain comment or a collection of comments related to a certain project and to a certain issue.
+    	</p>
+    	<h3>issues_url</h3>
+    	<p>
+    		The target URI is a templated URI that can be used to obtain a certain issue or a collection of issues related to a certain project.
+    	</p>
+    	<h3>projects_url</h3>
+    	<p>
+    		The target URI is a templated URI that can be used to obtain a certain project or a collection of projects.
+    	</p>
+    	<h3>tags_url</h3>
+    	<p>
+    		The target URI is a templated URI that can be used to obtain a certain tag or a collection of tags related to a certain project.
+    	</p>
+    </div>
+
+<h2>Resources</h2>
+    <div class="block_of_content">
+        <p>The following items describe the properties in each resource available through this API.</p>
+
+        <h3 id="res_project">Project</h3>
+        <p>All projects have the following properties:</p>
+        <table>
+            <tr>
+                <th>Property</th>
+                <th>Description</th>
+                <th>DataType</th>
+                <th>Nullable</th>
+                <th>Unique</th>
+                <th>Readonly</th>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>unique key for project</td>
+                <td>String</td>
+                <td>FALSE</td>
+                <td>TRUE</td>
+                <td>TRUE</td>
+            </tr>
+            <tr>
+                <td>tags</td>
+                <td>set of tags related to the project</td>
+                <td>Array of String</td>
+                <td>TRUE</td>
+                <td>FALSE</td>
+                <td>TRUE</td>
+            </tr>
+            <tr>
+                <td>name</td>
+                <td>unique name for project</td>
+                <td>String</td>
+                <td>FALSE</td>
+                <td>TRUE</td>
+                <td>TRUE</td>
+            </tr>
+        </table>
+        <blockquote>
+            <i>id</i> is only available after a project is created.
+        </blockquote>
+        <h3 id="res_issue">Issue</h3>
+        <table>
+            <tr>
+                <th>Property</th>
+                <th>Description</th>
+                <th>DataType</th>
+                <th>Nullable</th>
+                <th>Unique</th>
+                <th>Readonly</th>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>unique key for issue inside a given project</td>
+                <td>String</td>
+                <td>FALSE</td>
+                <td>TRUE</td>
+                <td>TRUE</td>
+            </tr>
+            <tr>
+                <td>title</td>
+                <td>title of issue</td>
+                <td>String</td>
+                <td>FALSE</td>
+                <td>FALSE</td>
+                <td>TRUE</td>
+            </tr>
+            <tr>
+                <td>state</td>
+                <td>current status of issue</td>
+                <td>String</td>
+                <td>FALSE</td>
+                <td>FALSE</td>
+                <td>FALSE</td>
+            </tr>
+            <tr>
+                <td>tags</td>
+                <td>tags associated with an issue</td>
+                <td>Array of String</td>
+                <td>TRUE</td>
+                <td>FALSE</td>
+                <td>FALSE</td>
+            </tr>
+            <tr>
+                <td>description</td>
+                <td>the main description of issue</td>
+                <td>String</td>
+                <td>FALSE</td>
+                <td>FALSE</td>
+                <td>FALSE</td>
+            </tr>
+        </table>
+        <blockquote>
+            <i>id</i> is only available after an issue is created.
+        </blockquote>
+        <h3 id="res_tag">Tag</h3>
+        <table>
+            <tr>
+                <th>Property</th>
+                <th>Description</th>
+                <th>DataType</th>
+                <th>Nullable</th>
+                <th>Unique</th>
+                <th>Readonly</th>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>unique key for a tag</td>
+                <td>String</td>
+                <td>FALSE</td>
+                <td>TRUE</td>
+                <td>TRUE</td>
+            </tr>
+            <tr>
+                <td>name</td>
+                <td>name of tag</td>
+                <td>String</td>
+                <td>FALSE</td>
+                <td>FALSE</td>
+                <td>TRUE</td>
+            </tr>
+        </table>
+        <blockquote>
+            <i>id</i> is only available after a tag is created.
+        </blockquote>
+        <h3 id="res_comment">Comment</h3>
+        <table>
+            <tr>
+                <th>Property</th>
+                <th>Description</th>
+                <th>DataType</th>
+                <th>Nullable</th>
+                <th>Unique</th>
+                <th>Readonly</th>
+            </tr>
+            <tr>
+                <td>id</td>
+                <td>unique key for a comment</td>
+                <td>String</td>
+                <td>FALSE</td>
+                <td>TRUE</td>
+                <td>TRUE</td>
+            </tr>
+            <tr>
+                <td>content</td>
+                <td>content of comment</td>
+                <td>String</td>
+                <td>FALSE</td>
+                <td>FALSE</td>
+                <td>TRUE</td>
+            </tr>
+            <tr>
+                <td>creationDate</td>
+                <td>timestamp when comment was created</td>
+                <td>Date</td>
+                <td>FALSE</td>
+                <td>TRUE</td>
+                <td>TRUE</td>
+            </tr>
+        </table>
+        <blockquote>
+            <i>id</i> and <i>creationDate</i> are only available after a comment is created.
+            <br>
+            <i>creationDate</i> follows the pattern "MM/dd/yyyy".
+        </blockquote>
+    
+    <h3>Link Relations</h3>
+    	<p>
+    		This relations are application-based and are present in the representations of each ressource.
+    	</p>
+        <h3 id="issues"><i>issues</i></h3>
+        <p>
+            The target URI points to a resource that represents a collection with items of the resource type
+            <a href="#res_issue">Issue</a>.
+        </p>
+        <h3 id="issue"><i>issue</i></h3>
+        <p>
+            The target URI points to a resource that represents a single item of the resource type
+            <a href="#res_issue">Issue</a>.
+        </p>
+        <h3 id="tags"><i>tags</i></h3>
+        <p>
+            The target URI points to a resource that represents a collection with items of the resource type
+            <a href="#res_tag">Tag</a>.
+        </p>
+        <h3 id="tag"><i>tag</i></h3>
+        <p>
+            The target URI points to a resource that represents a single item of the resource type
+            <a href="#res_tag">Tag</a>.
+        </p>
+        <h3 id="comments"><i>comments</i></h3>
+        <p>
+            The target URI points to a resource that represents a collection with items of the resource type
+            <a href="#res_comment">Comment</a>.
+        </p>
+        <h3 id="comment"><i>comment</i></h3>
+        <p>
+            The target URI points to a resource that represents a single item of the resource type
+            <a href="#res_comment">Comment</a>.
+        </p>
+        <h3 id="project"><i>project</i></h3>
+        <p>
+            The target URI points to a resource that represents a single item of the resource type
+            <a href="#res_project">Project</a>.
+        </p>
+        <h3><i>search</i></h3>
+        <p>
+            The target URI can be used to restrict the representation of a collection for the context resource.
+        </p>
+	</div>
+    </div>
+</body>
+</html>
